@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.studyonline.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.studyonline.model.Teacher" >
+    <id column="Teaname" property="teaname" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Userinfo" property="userinfo" jdbcType="VARCHAR" />
+    <result column="Nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="Pic" property="pic" jdbcType="VARCHAR" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Cardnum" property="cardnum" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Birthday" property="birthday" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Teaname, Password, Userinfo, Nickname, Pic, Title, Cardnum, Sex, Phone, Birthday
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.studyonline.model.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where Teaname = #{teaname,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from teacher
+    where Teaname = #{teaname,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.studyonline.model.TeacherExample" >
+    delete from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.studyonline.model.Teacher" >
+    insert into teacher (Teaname, Password, Userinfo, 
+      Nickname, Pic, Title, 
+      Cardnum, Sex, Phone, 
+      Birthday)
+    values (#{teaname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userinfo,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{cardnum,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.studyonline.model.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teaname != null" >
+        Teaname,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="userinfo != null" >
+        Userinfo,
+      </if>
+      <if test="nickname != null" >
+        Nickname,
+      </if>
+      <if test="pic != null" >
+        Pic,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="cardnum != null" >
+        Cardnum,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="birthday != null" >
+        Birthday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teaname != null" >
+        #{teaname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfo != null" >
+        #{userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cardnum != null" >
+        #{cardnum,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.studyonline.model.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher
+    <set >
+      <if test="record.teaname != null" >
+        Teaname = #{record.teaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfo != null" >
+        Userinfo = #{record.userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        Nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic != null" >
+        Pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        Title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardnum != null" >
+        Cardnum = #{record.cardnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        Sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        Birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher
+    set Teaname = #{record.teaname,jdbcType=VARCHAR},
+      Password = #{record.password,jdbcType=VARCHAR},
+      Userinfo = #{record.userinfo,jdbcType=VARCHAR},
+      Nickname = #{record.nickname,jdbcType=VARCHAR},
+      Pic = #{record.pic,jdbcType=VARCHAR},
+      Title = #{record.title,jdbcType=VARCHAR},
+      Cardnum = #{record.cardnum,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=VARCHAR},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Birthday = #{record.birthday,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.studyonline.model.Teacher" >
+    update teacher
+    <set >
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfo != null" >
+        Userinfo = #{userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        Nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        Pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cardnum != null" >
+        Cardnum = #{cardnum,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        Birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Teaname = #{teaname,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.studyonline.model.Teacher" >
+    update teacher
+    set Password = #{password,jdbcType=VARCHAR},
+      Userinfo = #{userinfo,jdbcType=VARCHAR},
+      Nickname = #{nickname,jdbcType=VARCHAR},
+      Pic = #{pic,jdbcType=VARCHAR},
+      Title = #{title,jdbcType=VARCHAR},
+      Cardnum = #{cardnum,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Birthday = #{birthday,jdbcType=TIMESTAMP}
+    where Teaname = #{teaname,jdbcType=VARCHAR}
+  </update>
+</mapper>

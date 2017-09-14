@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.studyonline.mapper.PostMapper" >
+  <resultMap id="BaseResultMap" type="com.studyonline.model.Post" >
+    <id column="PostID" property="postid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="CreatedUid" property="createduid" jdbcType="VARCHAR" />
+    <result column="Label" property="label" jdbcType="VARCHAR" />
+    <result column="ReplyNum" property="replynum" jdbcType="INTEGER" />
+    <result column="LastReplyTime" property="lastreplytime" jdbcType="TIMESTAMP" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PostID, Name, Content, CreatedTime, CreatedUid, Label, ReplyNum, LastReplyTime, nickname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.studyonline.model.PostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from post
+    where PostID = #{postid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from post
+    where PostID = #{postid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.studyonline.model.PostExample" >
+    delete from post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.studyonline.model.Post" >
+    insert into post (PostID, Name, Content, 
+      CreatedTime, CreatedUid, Label, 
+      ReplyNum, LastReplyTime, nickname
+      )
+    values (#{postid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{createdtime,jdbcType=TIMESTAMP}, #{createduid,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, 
+      #{replynum,jdbcType=INTEGER}, #{lastreplytime,jdbcType=TIMESTAMP}, #{nickname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.studyonline.model.Post" useGeneratedKeys="true"  keyProperty="postid">
+    insert into post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postid != null" >
+        PostID,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="createduid != null" >
+        CreatedUid,
+      </if>
+      <if test="label != null" >
+        Label,
+      </if>
+      <if test="replynum != null" >
+        ReplyNum,
+      </if>
+      <if test="lastreplytime != null" >
+        LastReplyTime,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postid != null" >
+        #{postid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createduid != null" >
+        #{createduid,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="replynum != null" >
+        #{replynum,jdbcType=INTEGER},
+      </if>
+      <if test="lastreplytime != null" >
+        #{lastreplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.studyonline.model.PostExample" resultType="java.lang.Integer" >
+    select count(*) from post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update post
+    <set >
+      <if test="record.postid != null" >
+        PostID = #{record.postid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        Content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdtime != null" >
+        CreatedTime = #{record.createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createduid != null" >
+        CreatedUid = #{record.createduid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.label != null" >
+        Label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replynum != null" >
+        ReplyNum = #{record.replynum,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastreplytime != null" >
+        LastReplyTime = #{record.lastreplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update post
+    set PostID = #{record.postid,jdbcType=INTEGER},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Content = #{record.content,jdbcType=VARCHAR},
+      CreatedTime = #{record.createdtime,jdbcType=TIMESTAMP},
+      CreatedUid = #{record.createduid,jdbcType=VARCHAR},
+      Label = #{record.label,jdbcType=VARCHAR},
+      ReplyNum = #{record.replynum,jdbcType=INTEGER},
+      LastReplyTime = #{record.lastreplytime,jdbcType=TIMESTAMP},
+      nickname = #{record.nickname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.studyonline.model.Post" >
+    update post
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createduid != null" >
+        CreatedUid = #{createduid,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        Label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="replynum != null" >
+        ReplyNum = #{replynum,jdbcType=INTEGER},
+      </if>
+      <if test="lastreplytime != null" >
+        LastReplyTime = #{lastreplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PostID = #{postid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.studyonline.model.Post" >
+    update post
+    set Name = #{name,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      CreatedUid = #{createduid,jdbcType=VARCHAR},
+      Label = #{label,jdbcType=VARCHAR},
+      ReplyNum = #{replynum,jdbcType=INTEGER},
+      LastReplyTime = #{lastreplytime,jdbcType=TIMESTAMP},
+      nickname = #{nickname,jdbcType=VARCHAR}
+    where PostID = #{postid,jdbcType=INTEGER}
+  </update>
+</mapper>

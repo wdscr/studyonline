@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.studyonline.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.studyonline.model.Course" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="CourseName" property="coursename" jdbcType="VARCHAR" />
+    <result column="Describe" property="describe" jdbcType="VARCHAR" />
+    <result column="FirstClassname" property="firstclassname" jdbcType="VARCHAR" />
+    <result column="CoursePic" property="coursepic" jdbcType="VARCHAR" />
+    <result column="hot" property="hot" jdbcType="INTEGER" />
+    <result column="SecClassname" property="secclassname" jdbcType="VARCHAR" />
+    <result column="Reference" property="reference" jdbcType="VARCHAR" />
+    <result column="Score" property="score" jdbcType="REAL" />
+    <result column="TeacherId" property="teacherid" jdbcType="VARCHAR" />
+    <result column="dif" property="dif" jdbcType="VARCHAR" />
+    <result column="StudyCount" property="studycount" jdbcType="INTEGER" />
+    <result column="ScoreCount" property="scorecount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    *
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.studyonline.model.CourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.studyonline.model.CourseExample" >
+    delete from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.studyonline.model.Course" >
+    	<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+    insert into course (Id, CourseName, `Describe` , 
+      FirstClassname, CoursePic, hot, 
+      SecClassname, Reference, Score, 
+      TeacherId, dif, StudyCount, 
+      ScoreCount)
+    values (#{id,jdbcType=INTEGER}, #{coursename,jdbcType=VARCHAR}, #{describe ,jdbcType=VARCHAR}, 
+      #{firstclassname,jdbcType=VARCHAR}, #{coursepic,jdbcType=VARCHAR}, #{hot,jdbcType=INTEGER}, 
+      #{secclassname,jdbcType=VARCHAR}, #{reference,jdbcType=VARCHAR}, #{score,jdbcType=REAL}, 
+      #{teacherid,jdbcType=VARCHAR}, #{dif,jdbcType=VARCHAR}, #{studycount,jdbcType=INTEGER}, 
+      #{scorecount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.studyonline.model.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="coursename != null" >
+        CourseName,
+      </if>
+      <if test="describe != null" >
+        `Describe` ,
+      </if>
+      <if test="firstclassname != null" >
+        FirstClassname,
+      </if>
+      <if test="coursepic != null" >
+        CoursePic,
+      </if>
+      <if test="hot != null" >
+        hot,
+      </if>
+      <if test="secclassname != null" >
+        SecClassname,
+      </if>
+      <if test="reference != null" >
+        Reference,
+      </if>
+      <if test="score != null" >
+        Score,
+      </if>
+      <if test="teacherid != null" >
+        TeacherId,
+      </if>
+      <if test="dif != null" >
+        dif,
+      </if>
+      <if test="studycount != null" >
+        StudyCount,
+      </if>
+      <if test="scorecount != null" >
+        ScoreCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="coursename != null" >
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="firstclassname != null" >
+        #{firstclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="coursepic != null" >
+        #{coursepic,jdbcType=VARCHAR},
+      </if>
+      <if test="hot != null" >
+        #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="secclassname != null" >
+        #{secclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="reference != null" >
+        #{reference,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=REAL},
+      </if>
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="dif != null" >
+        #{dif,jdbcType=VARCHAR},
+      </if>
+      <if test="studycount != null" >
+        #{studycount,jdbcType=INTEGER},
+      </if>
+      <if test="scorecount != null" >
+        #{scorecount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.studyonline.model.CourseExample" resultType="java.lang.Integer" >
+    select count(*) from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursename != null" >
+        CourseName = #{record.coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.describe != null" >
+        `Describe`  = #{record.describe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstclassname != null" >
+        FirstClassname = #{record.firstclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursepic != null" >
+        CoursePic = #{record.coursepic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hot != null" >
+        hot = #{record.hot,jdbcType=INTEGER},
+      </if>
+      <if test="record.secclassname != null" >
+        SecClassname = #{record.secclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reference != null" >
+        Reference = #{record.reference,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        Score = #{record.score,jdbcType=REAL},
+      </if>
+      <if test="record.teacherid != null" >
+        TeacherId = #{record.teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dif != null" >
+        dif = #{record.dif,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studycount != null" >
+        StudyCount = #{record.studycount,jdbcType=INTEGER},
+      </if>
+      <if test="record.scorecount != null" >
+        ScoreCount = #{record.scorecount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course
+    set Id = #{record.id,jdbcType=INTEGER},
+      CourseName = #{record.coursename,jdbcType=VARCHAR},
+      `Describe`  = #{record.describe,jdbcType=VARCHAR},
+      FirstClassname = #{record.firstclassname,jdbcType=VARCHAR},
+      CoursePic = #{record.coursepic,jdbcType=VARCHAR},
+      hot = #{record.hot,jdbcType=INTEGER},
+      SecClassname = #{record.secclassname,jdbcType=VARCHAR},
+      Reference = #{record.reference,jdbcType=VARCHAR},
+      Score = #{record.score,jdbcType=REAL},
+      TeacherId = #{record.teacherid,jdbcType=VARCHAR},
+      dif = #{record.dif,jdbcType=VARCHAR},
+      StudyCount = #{record.studycount,jdbcType=INTEGER},
+      ScoreCount = #{record.scorecount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.studyonline.model.Course" >
+    update course
+    <set >
+      <if test="coursename != null" >
+        CourseName = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null" >
+        `Describe`  = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="firstclassname != null" >
+        FirstClassname = #{firstclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="coursepic != null" >
+        CoursePic = #{coursepic,jdbcType=VARCHAR},
+      </if>
+      <if test="hot != null" >
+        hot = #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="secclassname != null" >
+        SecClassname = #{secclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="reference != null" >
+        Reference = #{reference,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        Score = #{score,jdbcType=REAL},
+      </if>
+      <if test="teacherid != null" >
+        TeacherId = #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="dif != null" >
+        dif = #{dif,jdbcType=VARCHAR},
+      </if>
+      <if test="studycount != null" >
+        StudyCount = #{studycount,jdbcType=INTEGER},
+      </if>
+      <if test="scorecount != null" >
+        ScoreCount = #{scorecount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.studyonline.model.Course" >
+    update course
+    set CourseName = #{coursename,jdbcType=VARCHAR},
+      `Describe`  = #{describe,jdbcType=VARCHAR},
+      FirstClassname = #{firstclassname,jdbcType=VARCHAR},
+      CoursePic = #{coursepic,jdbcType=VARCHAR},
+      hot = #{hot,jdbcType=INTEGER},
+      SecClassname = #{secclassname,jdbcType=VARCHAR},
+      Reference = #{reference,jdbcType=VARCHAR},
+      Score = #{score,jdbcType=REAL},
+      TeacherId = #{teacherid,jdbcType=VARCHAR},
+      dif = #{dif,jdbcType=VARCHAR},
+      StudyCount = #{studycount,jdbcType=INTEGER},
+      ScoreCount = #{scorecount,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="findCourseBetween" parameterType="com.studyonline.model.Section"
+		resultMap="BaseResultMap">
+		SELECT * FROM course limit #{x},#{y}
+	</select>
+	
+   <select id="selecthot"  resultType="String" >
+    select SecClassname
+    from course
+    GROUP BY FirstClassname,SecClassname
+    ORDER BY sum(StudyCount) desc
+    limit 5
+  </select>
+  
+</mapper>

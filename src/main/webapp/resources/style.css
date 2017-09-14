@@ -1,0 +1,109 @@
+body {
+    background-color: #EAEAEA;
+}
+#header {
+    font-size: 45px;
+    text-shadow: 3px 3px 3px #E5E5E5;
+    font-weight: bold;
+    color: #EAEAEA;
+    text-decoration: none;
+}
+
+#list-head {
+    text-align: center;
+    font-weight: bold;
+}
+
+#anno-panel {
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 1px 1px 5px 5px #E3E3E3;
+}
+#nav-panel{
+    box-shadow: 1px 1px 5px 5px #E3E3E3;
+}
+#home-right-panel{
+    box-shadow: 1px 1px 5px 5px #E3E3E3;
+}
+
+#anno {
+    height: 250px;
+    overflow: auto;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    box-shadow: 1px 1px 5px 5px #D9D9D9;
+}
+
+#ann {
+    text-align: center;
+
+}
+
+#illu {
+    margin-left: 8px;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+#home-right {
+    /*border: solid;*/
+}
+
+#f-list {
+    /*border: solid;*/
+}
+
+#info {
+    text-align: right;
+}
+
+#info-form {
+    margin-bottom: 30px;
+    padding-left: 50px;
+}
+
+#info-form-head {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    padding-left: 50px;
+}
+
+
+#button-group {
+
+margin: 30px;
+
+}
+#anno-title {
+    text-align: center;
+}
+#home-top {
+    margin: 4px;
+    background-color: #666;
+}
+.panel-default > .panel-heading {
+    background-color: #666;
+    margin:3px;
+}
+.panel-heading{
+    margin:4px;
+}
+#accp-text {
+    text-decoration: none;
+}
+#acco-frame {
+    background-color: #F5F5F5;
+    box-shadow: 1px 1px 5px 5px #F8F8FF;
+}
+#acco-title{
+    margin:3px;
+}
+.main-panel{
+    margin:25px;
+    /*border:solid;*/
+    box-shadow: 1px 1px 5px 5px #E3E3E3;
+}
+.table-hover > tbody > tr:hover {
+  background-color: #c4e3f3;
+}

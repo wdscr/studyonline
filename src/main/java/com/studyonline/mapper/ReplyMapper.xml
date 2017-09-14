@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.studyonline.mapper.ReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.studyonline.model.Reply" >
+    <id column="ReplyID" property="replyid" jdbcType="INTEGER" />
+    <result column="PostID" property="postid" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="ReplyTime" property="replytime" jdbcType="TIMESTAMP" />
+    <result column="ReplyToReplyID" property="replytoreplyid" jdbcType="INTEGER" />
+    <result column="ReplyToUid" property="replytouid" jdbcType="VARCHAR" />
+    <result column="Replyname" property="replyname" jdbcType="VARCHAR" />
+    <result column="Replytoname" property="replytoname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ReplyID, PostID, Uid, Content, ReplyTime, ReplyToReplyID, ReplyToUid, Replyname, 
+    Replytoname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.studyonline.model.ReplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reply
+    where ReplyID = #{replyid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reply
+    where ReplyID = #{replyid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.studyonline.model.ReplyExample" >
+    delete from reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.studyonline.model.Reply" >
+    insert into reply (ReplyID, PostID, Uid, 
+      Content, ReplyTime, ReplyToReplyID, 
+      ReplyToUid, Replyname, Replytoname
+      )
+    values (#{replyid,jdbcType=INTEGER}, #{postid,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{replytime,jdbcType=TIMESTAMP}, #{replytoreplyid,jdbcType=INTEGER}, 
+      #{replytouid,jdbcType=VARCHAR}, #{replyname,jdbcType=VARCHAR}, #{replytoname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.studyonline.model.Reply" >
+    insert into reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        ReplyID,
+      </if>
+      <if test="postid != null" >
+        PostID,
+      </if>
+      <if test="uid != null" >
+        Uid,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="replytime != null" >
+        ReplyTime,
+      </if>
+      <if test="replytoreplyid != null" >
+        ReplyToReplyID,
+      </if>
+      <if test="replytouid != null" >
+        ReplyToUid,
+      </if>
+      <if test="replyname != null" >
+        Replyname,
+      </if>
+      <if test="replytoname != null" >
+        Replytoname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        #{replyid,jdbcType=INTEGER},
+      </if>
+      <if test="postid != null" >
+        #{postid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="replytime != null" >
+        #{replytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replytoreplyid != null" >
+        #{replytoreplyid,jdbcType=INTEGER},
+      </if>
+      <if test="replytouid != null" >
+        #{replytouid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyname != null" >
+        #{replyname,jdbcType=VARCHAR},
+      </if>
+      <if test="replytoname != null" >
+        #{replytoname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.studyonline.model.ReplyExample" resultType="java.lang.Integer" >
+    select count(*) from reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update reply
+    <set >
+      <if test="record.replyid != null" >
+        ReplyID = #{record.replyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.postid != null" >
+        PostID = #{record.postid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        Uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        Content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replytime != null" >
+        ReplyTime = #{record.replytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replytoreplyid != null" >
+        ReplyToReplyID = #{record.replytoreplyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.replytouid != null" >
+        ReplyToUid = #{record.replytouid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyname != null" >
+        Replyname = #{record.replyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replytoname != null" >
+        Replytoname = #{record.replytoname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update reply
+    set ReplyID = #{record.replyid,jdbcType=INTEGER},
+      PostID = #{record.postid,jdbcType=INTEGER},
+      Uid = #{record.uid,jdbcType=VARCHAR},
+      Content = #{record.content,jdbcType=VARCHAR},
+      ReplyTime = #{record.replytime,jdbcType=TIMESTAMP},
+      ReplyToReplyID = #{record.replytoreplyid,jdbcType=INTEGER},
+      ReplyToUid = #{record.replytouid,jdbcType=VARCHAR},
+      Replyname = #{record.replyname,jdbcType=VARCHAR},
+      Replytoname = #{record.replytoname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.studyonline.model.Reply" >
+    update reply
+    <set >
+      <if test="postid != null" >
+        PostID = #{postid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        Uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="replytime != null" >
+        ReplyTime = #{replytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replytoreplyid != null" >
+        ReplyToReplyID = #{replytoreplyid,jdbcType=INTEGER},
+      </if>
+      <if test="replytouid != null" >
+        ReplyToUid = #{replytouid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyname != null" >
+        Replyname = #{replyname,jdbcType=VARCHAR},
+      </if>
+      <if test="replytoname != null" >
+        Replytoname = #{replytoname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ReplyID = #{replyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.studyonline.model.Reply" >
+    update reply
+    set PostID = #{postid,jdbcType=INTEGER},
+      Uid = #{uid,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      ReplyTime = #{replytime,jdbcType=TIMESTAMP},
+      ReplyToReplyID = #{replytoreplyid,jdbcType=INTEGER},
+      ReplyToUid = #{replytouid,jdbcType=VARCHAR},
+      Replyname = #{replyname,jdbcType=VARCHAR},
+      Replytoname = #{replytoname,jdbcType=VARCHAR}
+    where ReplyID = #{replyid,jdbcType=INTEGER}
+  </update>
+</mapper>
